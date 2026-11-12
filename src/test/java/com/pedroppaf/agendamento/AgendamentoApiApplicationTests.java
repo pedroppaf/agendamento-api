@@ -1,4 +1,4 @@
-package com.pedroppaf.agendamento_api;
+package com.pedroppaf.agendamento;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

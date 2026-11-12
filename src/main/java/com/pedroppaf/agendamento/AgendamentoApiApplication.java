@@ -1,4 +1,4 @@
-package com.pedroppaf.agendamento_api;
+package com.pedroppaf.agendamento;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
