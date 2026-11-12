@@ -1,10 +1,7 @@
 package com.pedroppaf.agendamento.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,8 +10,7 @@ import java.util.UUID;
 @Table(name = "agendamentos")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Agendamento {
 
     @Id
@@ -32,4 +28,11 @@ public class Agendamento {
 
     @Column(nullable = false)
     private LocalDateTime dataHoraFim;
+
+    public Agendamento(String clienteNome, String servico, LocalDateTime dataHoraInicio, int duracaoMinutos) {
+        this.clienteNome = clienteNome;
+        this.servico = servico;
+        this.dataHoraInicio = dataHoraInicio;
+        this.dataHoraFim = dataHoraInicio.plusMinutes(duracaoMinutos);
+    }
 }
