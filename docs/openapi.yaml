@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: API de Agendamentos - Projeto B
+  version: 1.0.0
+  description: API de domínio único para criação e consulta de agendamentos.
+paths:
+  /api/agendamentos:
+    post:
+      summary: Cria um novo agendamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgendamentoRequest'
+      responses:
+        '201':
+          description: Agendamento criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgendamentoResponse'
+        '400':
+          description: Erro de validação de campos
+        '422':
+          description: Violação de regra de negócio (fora do horário ou conflito)
+  /api/agendamentos/{id}:
+    get:
+      summary: Busca um agendamento por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Agendamento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgendamentoResponse'
+        '422':
+          description: Agendamento não encontrado
+components:
+  schemas:
+    AgendamentoRequest:
+      type: object
+      required:
+        - clienteNome
+        - servico
+        - dataHoraInicio
+        - duracaoMinutos
+      properties:
+        clienteNome:
+          type: string
+          example: "João Silva"
+        servico:
+          type: string
+          example: "Consultoria Técnica"
+        dataHoraInicio:
+          type: string
+          format: date-time
+          example: "2026-12-10T10:00:00"
+        duracaoMinutos:
+          type: integer
+          minimum: 15
+          example: 60
+    AgendamentoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        clienteNome:
+          type: string
+        servico:
+          type: string
+        dataHoraInicio:
+          type: string
+          format: date-time
+        dataHoraFim:
+          type: string
+          format: date-time
